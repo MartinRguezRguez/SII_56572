@@ -16,6 +16,8 @@ Este repositorio contiene el material utilizado en las prácticas de la asignatu
 
 El objetivo de la asignatura es introducir en el desarrollo de aplicaciones para sistemas informáticos industriales, haciendo especial énfasis en el uso del lenguaje C y del sistema operativo Linux.
 
+Se trabajará en el diseño y mejora del código proporcionado del juego de tenis para obtener como objetivo final un juego en red y funcional. 
+
 ---
 
 ## 📚 Wiki
@@ -27,13 +29,9 @@ https://github.com/raquelcedazo/sistemas-informaticos-industriales/wiki
 
 ---
 
-## 🎓 Profesorado
+## 🎓 Estudiante
 
-Asignatura impartida por el **Departamento de Ingeniería Eléctrica, Electrónica, Automática y Física Aplicada** de la **Universidad Politécnica de Madrid**:
-
-- **Raquel Cedazo** *(coordinadora de las prácticas)*
-- **David Álvarez**
-- **Imanol Izcara**
+- **Martin Rodriguez Rodriguez**
 
 ---
 
@@ -42,3 +40,5 @@ Asignatura impartida por el **Departamento de Ingeniería Eléctrica, Electróni
 Este repositorio tiene finalidad exclusivamente docente.
 
 Si detectas algún error o tienes alguna sugerencia de mejora, puedes comunicarlo al profesorado de la asignatura.
+
+
