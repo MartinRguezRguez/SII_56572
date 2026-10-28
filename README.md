@@ -18,6 +18,8 @@ El objetivo de la asignatura es introducir en el desarrollo de aplicaciones para
 
 Se trabajará en el diseño y mejora del código proporcionado del juego de tenis para obtener como objetivo final un juego en red y funcional. 
 
+Primeramente se comienza familiarizándose con el entorno linux y se modifica el código proporcionado para darle movimiento a la esfera y a las raquetas haciéndolo ya un juego funcional.
+
 ---
 
 ## 📚 Wiki
