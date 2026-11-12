@@ -11,6 +11,7 @@
 #include <math.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/mman.h>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -26,7 +27,8 @@ CMundo::CMundo()
 
 CMundo::~CMundo()
 {
-      close(fd);  
+      close(fd);
+      close(fd_bot);
 }
 
 void CMundo::InitGL()
@@ -122,7 +124,7 @@ void CMundo::OnTimer(int value)
 {	
 	jugador1.Mueve(0.025f);
 	jugador2.Mueve(0.025f);
-	esfera.Mueve(0.025f);
+	esfera.Mueve(0.040f);
 	int i;
 	for(i=0;i<paredes.size();i++)
 	{
@@ -172,6 +174,22 @@ void CMundo::OnTimer(int value)
 		      }
 	      	  
           }
+          
+        datos_bot->esfera=esfera;
+        datos_bot->raqueta1=jugador1;
+          if(datos_bot->accion == 1)
+            {
+              jugador1.velocidad.y=4;
+            } 
+          if (datos_bot->accion == 0)
+            {
+              jugador1.velocidad.y=0;
+            }
+            
+          if(datos_bot->accion == -1)
+            {
+              jugador1.velocidad.y=-4;
+            }
 }
 
 void CMundo::OnKeyboardDown(unsigned char key, int x, int y)
@@ -182,7 +200,7 @@ void CMundo::OnKeyboardDown(unsigned char key, int x, int y)
 //	case 'd':jugador1.velocidad.x=1;break;
 	case 's':jugador1.velocidad.y=-4;break;
 	case 'w':jugador1.velocidad.y=4;break;
-	case 'l':jugador2.velocidad.y=-4;break;
+	case 'i':jugador2.velocidad.y=-4;break;
 	case 'o':jugador2.velocidad.y=4;break;
 
 	}
@@ -220,8 +238,29 @@ void CMundo::Init()
 	jugador2.x2=6;jugador2.y2=1;
 	
 	fd=open("FIFO",O_WRONLY);
-	 if (fd < 0){
+	 if (fd < 0)
+	  {
 	    perror("No se ha podido abrir la FIFO");
 	    exit(1);
-	  }
+	  }  
+	  
+	  fd_bot=open("MemoriaComp",O_RDWR | O_CREAT , 0666);
+	    if (fd_bot < 0)
+	      {
+	      perror("Error al abrir el archivo");
+	      }
+	      
+	  ftruncate(fd_bot,sizeof(DatosMemCompartida));
+	  
+	  char*direccion=(char*)mmap(NULL,sizeof(DatosMemCompartida),PROT_READ | PROT_WRITE, MAP_SHARED,fd_bot,0); 
+	  //direccion memoria compartida, empieza aqui donde esta esfera,raqueta1 y accion
+	    if(direccion == MAP_FAILED)
+	      {
+	        perror("Error al proyectar memoria");
+	      }     
+	  
+	  
+	  close(fd_bot);
+	  datos_bot=(DatosMemCompartida*)direccion; //Puntero de datos_bot ya apunta a DatosMemCompartida
+	  
 }
