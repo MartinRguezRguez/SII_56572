@@ -20,6 +20,8 @@ Se trabajará en el diseño y mejora del código proporcionado del juego de teni
 
 Primeramente se comienza familiarizándose con el entorno linux y se modifica el código proporcionado para darle movimiento a la esfera y a las raquetas haciéndolo ya un juego funcional.
 
+A continuación, se modificó el código añadiendo una FIFO para poder mostrar en pantalla cada vez que habia un punto por parte de algún jugador y terminando la partida cuando alguno de los dos llegaba a 3 puntos.
+
 ---
 
 ## 📚 Wiki
