@@ -4,16 +4,19 @@
 
 #if !defined(AFX_MUNDO_H__9510340A_3D75_485F_93DC_302A43B8039A__INCLUDED_)
 #define AFX_MUNDO_H__9510340A_3D75_485F_93DC_302A43B8039A__INCLUDED_
-
+#pragma once
 #include <vector>
 #include "Plano.h"
 
+
 #if _MSC_VER > 1000
-#pragma once
+
 #endif // _MSC_VER > 1000
 
 #include "Esfera.h"
 #include "Raqueta.h"
+#include "DatosMemCompartida.h"
+
 
 
 
@@ -37,9 +40,12 @@ public:
 	Raqueta jugador2;
         
         int fd; // descriptor asociado a la tuberia del logger
+        int fd_bot;
         
 	int puntos1;
 	int puntos2;
+	
+	DatosMemCompartida*datos_bot; //puntero a DatosMemCompartida
 };
 
 #endif // !defined(AFX_MUNDO_H__9510340A_3D75_485F_93DC_302A43B8039A__INCLUDED_)
