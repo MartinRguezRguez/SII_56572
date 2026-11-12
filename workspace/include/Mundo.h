@@ -15,6 +15,8 @@
 #include "Esfera.h"
 #include "Raqueta.h"
 
+
+
 class CMundo  
 {
 public:
@@ -33,7 +35,9 @@ public:
 	Plano fondo_dcho;
 	Raqueta jugador1;
 	Raqueta jugador2;
-
+        
+        int fd; // descriptor asociado a la tuberia del logger
+        
 	int puntos1;
 	int puntos2;
 };

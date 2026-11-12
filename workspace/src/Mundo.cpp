@@ -9,19 +9,24 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <unistd.h>
+#include <fcntl.h>
+
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
+
 CMundo::CMundo()
 {
 	Init();
+	  
 }
 
 CMundo::~CMundo()
 {
-
+      close(fd);  
 }
 
 void CMundo::InitGL()
@@ -128,6 +133,7 @@ void CMundo::OnTimer(int value)
 
 	jugador1.Rebota(esfera);
 	jugador2.Rebota(esfera);
+	
 	if(fondo_izq.Rebota(esfera))
 	{
 		esfera.centro.x=0;
@@ -135,6 +141,17 @@ void CMundo::OnTimer(int value)
 		esfera.velocidad.x=2+2*rand()/(float)RAND_MAX;
 		esfera.velocidad.y=2+2*rand()/(float)RAND_MAX;
 		puntos2++;
+		
+		char mensaje[100];
+		sprintf(mensaje,"Marca el de la derecha 1 punto. Marcador %d - %d",puntos1,puntos2);
+		
+		    write(fd,mensaje,strlen(mensaje));
+		  if (puntos2>=3 || puntos1>=3)
+		  {
+		      exit(0);
+		      }
+		  
+		
 	}
 
 	if(fondo_dcho.Rebota(esfera))
@@ -144,8 +161,17 @@ void CMundo::OnTimer(int value)
 		esfera.velocidad.x=-2-2*rand()/(float)RAND_MAX;
 		esfera.velocidad.y=-2-2*rand()/(float)RAND_MAX;
 		puntos1++;
-	}
-
+		
+		char mensaje[100];
+		sprintf(mensaje,"Marca el de la izquierda 1 punto. Marcador %d - %d",puntos1,puntos2);
+		  write(fd,mensaje,strlen(mensaje));
+		  
+		  if (puntos2>=3 || puntos1>=3)
+		      {
+		      exit(0);
+		      }
+	      	  
+          }
 }
 
 void CMundo::OnKeyboardDown(unsigned char key, int x, int y)
@@ -192,4 +218,10 @@ void CMundo::Init()
 	jugador2.g=0;
 	jugador2.x1=6;jugador2.y1=-1;
 	jugador2.x2=6;jugador2.y2=1;
+	
+	fd=open("FIFO",O_WRONLY);
+	 if (fd < 0){
+	    perror("No se ha podido abrir la FIFO");
+	    exit(1);
+	  }
 }
